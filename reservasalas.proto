@@ -1,0 +1,55 @@
+syntax = "proto3";
+
+package reservassalas;
+
+import "google/protobuf/timestamp.proto";
+
+service ReservaSalas {
+  rpc CadastrarReserva (ReservaRequest) returns (ReservaResponse);
+  rpc RemoverReserva (ReservaRequest) returns (ReservaResponse);
+  rpc ConsultarReserva (ConsultaRequest) returns (ConsultaResponse);
+  rpc ConsultarReservasSala (SalaRequest) returns (ReservasSalaResponse);
+  rpc ConsultarReservasUsuario (UsuarioRequest) returns (ReservasUsuarioResponse);
+}
+
+message ReservaRequest {
+  string usuario = 1;
+  string sala = 2;
+  google.protobuf.Timestamp data_hora = 3;
+}
+
+message ReservaResponse {
+  string mensagem = 1;
+  bool sucesso = 2;
+}
+
+message ConsultaRequest {
+  string sala = 1;
+  google.protobuf.Timestamp data_hora = 2;
+}
+
+message ConsultaResponse {
+  string mensagem = 1;
+  bool reservada = 2;
+}
+
+message SalaRequest {
+  string sala = 1;
+}
+
+message ReservasSalaResponse {
+  repeated string usuarios = 1;
+}
+
+message UsuarioRequest {
+  string usuario = 1;
+}
+
+message ReservasUsuarioResponse {
+  repeated ReservaInfo reservas = 1;
+}
+
+message ReservaInfo {
+  string sala = 1;
+  google.protobuf.Timestamp data_hora = 2;
+}
